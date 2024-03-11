@@ -1,4 +1,4 @@
-import cPickle as pickle
+import _pickle as pickle
 import os
 import random
 from sklearn.neighbors import KNeighborsClassifier
@@ -24,7 +24,7 @@ def create_test_set_AWF_disjoint(features_model, n_instance, max_n, n_shot, type
             ins_num = '{:04}'.format(ins)
             file_name = '%s_%s.pkl' % (s, ins_num)
             with open(dataset_dir + '/' + s + '/' + file_name, 'rb') as handle:
-                test_set = pickle.load(handle)
+                test_set = pickle.load(handle,encoding='iso-8859-1')
                 site_dict[s].append(test_set)
 
     # create_signature and test_set
@@ -84,7 +84,7 @@ def create_test_set_AWF_training_included(features_model, n_instance, max_n, n_s
             ins_num = '{:04}'.format(ins)
             file_name = '%s_%s.pkl' % (s, ins_num)
             with open(dataset_dir + '/' + s + '/' + file_name, 'rb') as handle:
-                test_set = pickle.load(handle)
+                test_set = pickle.load(handle,encoding='iso-8859-1')
                 site_dict[s].append(test_set)
 
     # Load data_disjoint
@@ -103,7 +103,7 @@ def create_test_set_AWF_training_included(features_model, n_instance, max_n, n_s
             ins_num = '{:04}'.format(ins)
             file_name = '%s_%s.pkl' % (s, ins_num)
             with open(dataset_dir + '/' + s + '/' + file_name, 'rb') as handle:
-                test_set = pickle.load(handle)
+                test_set = pickle.load(handle,encoding='iso-8859-1')
                 site_dict[s].append(test_set)
 
     # create_signature and test_set
@@ -147,7 +147,7 @@ def kNN_accuracy(signature_vector_dict, test_vector_dict, size_of_problem, n_sho
     y_train = []
 
     # print "Size of problem :", size_of_problem
-    site_labels = signature_vector_dict.keys()
+    site_labels = list(signature_vector_dict.keys())
     random.shuffle(site_labels)
     tested_sites = site_labels[:size_of_problem]
     for s in tested_sites:

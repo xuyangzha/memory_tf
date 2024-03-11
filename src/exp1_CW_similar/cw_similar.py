@@ -33,7 +33,7 @@ def AWF_Disjoint_Experment():
     # n_shot_list = [1, 5, 10, 15, 20]
 
     for size_of_problem in SOP_list:
-        print "SOP:", size_of_problem
+        print("SOP:", size_of_problem)
         for n_shot in n_shot_list:
             acc_list_Top1 = []
             acc_list_Top2 = []
@@ -47,10 +47,13 @@ def AWF_Disjoint_Experment():
                 acc_list_Top1.append(float("{0:.15f}".format(round(acc_knn_top1, 5))))
                 acc_list_Top2.append(float("{0:.15f}".format(round(acc_knn_top2, 5))))
                 acc_list_Top5.append(float("{0:.15f}".format(round(acc_knn_top5, 5))))
-            print "N_shot:", n_shot
-            print str(acc_list_Top1).strip('[]')
-            print str(acc_list_Top2).strip('[]')
-            print str(acc_list_Top5).strip('[]')
+            print ("N_shot:", n_shot)
+            print (str(acc_list_Top1).strip('[]'))
+            print (str(acc_list_Top2).strip('[]'))
+            print (str(acc_list_Top5).strip('[]'))
+
+
+
 
 
 def AWF_TrainingIncluded_Experment():
@@ -78,9 +81,9 @@ def AWF_TrainingIncluded_Experment():
     # You can run grid search for various sizes of n-shot
     # n_shot_list = [1, 5, 10, 15, 20]
     for training_included in training_included_list:
-        print "Training included:", training_included
+        print ("Training included:", training_included)
         for size_of_problem in SOP_list:
-            print "SOP:", size_of_problem
+            print ("SOP:", size_of_problem)
             for n_shot in n_shot_list:
                 acc_list_Top1 = []
                 acc_list_Top2 = []
@@ -95,11 +98,11 @@ def AWF_TrainingIncluded_Experment():
                     acc_list_Top1.append(float("{0:.15f}".format(round(acc_knn_top1, 5))))
                     acc_list_Top2.append(float("{0:.15f}".format(round(acc_knn_top2, 5))))
                     acc_list_Top5.append(float("{0:.15f}".format(round(acc_knn_top5, 5))))
-                print "N_shot:", n_shot
+                print ("N_shot:", n_shot)
 
-                print str(acc_list_Top1).strip('[]')
-                print str(acc_list_Top2).strip('[]')
-                print str(acc_list_Top5).strip('[]')
+                print (str(acc_list_Top1).strip('[]'))
+                print (str(acc_list_Top2).strip('[]'))
+                print (str(acc_list_Top5).strip('[]'))
 
 
 AWF_Disjoint_Experment()

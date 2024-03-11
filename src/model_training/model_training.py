@@ -1,7 +1,7 @@
 import os
 import random
 import numpy as np
-import cPickle as pickle
+import _pickle as pickle
 import keras.backend as K
 from keras.models import Model
 from keras.layers import Input, Lambda, Dot
@@ -24,12 +24,12 @@ number_epoch = 30
 
 description = 'Triplet_Model'
 Training_Data_PATH = '../../dataset/extracted_AWF775/'
-print Training_Data_PATH
-print "with parameters, Alpha: %s, Batch_size: %s, Embedded_size: %s, Epoch_num: %s"%(alpha, batch_size_value, emb_size, number_epoch)
+print(Training_Data_PATH)
+print("with parameters, Alpha: %s, Batch_size: %s, Embedded_size: %s, Epoch_num: %s"%(alpha, batch_size_value, emb_size, number_epoch))
 
 
 alpha_value = float(alpha)
-print description
+print(description)
 
 # ================================================================================
 # This part is to prepare the files' index for geenrating triplet examples
@@ -48,7 +48,7 @@ name_to_classid = {d:i for i,d in enumerate(dirs)}
 classid_to_name = {v:k for k,v in name_to_classid.items()}
 
 num_classes = len(name_to_classid)
-print "number of classes: "+str(num_classes)
+print("number of classes: "+str(num_classes))
 
 # Each directory, there are n traces corresponding to the identity
 # We map each trace path with an integer id, then build dictionaries
@@ -90,13 +90,13 @@ all_traces = []
 for path in id_to_path.values():
     each_path = Training_Data_PATH + path
     with open(each_path, 'rb') as handle:
-        each_trace = pickle.load(handle)
+        each_trace = pickle.load(handle,encoding='iso-8859-1')
     all_traces += [each_trace]
 
 all_traces = np.vstack((all_traces))
 all_traces = all_traces[:, :, np.newaxis]
-print "Load traces with ",all_traces.shape
-print "Total size allocated on RAM : ", str(all_traces.nbytes / 1e6) + ' MB'
+print("Load traces with ",all_traces.shape)
+print("Total size allocated on RAM : ", str(all_traces.nbytes / 1e6) + ' MB')
 
 def build_pos_pairs_for_id(classid): # classid --> e.g. 0
     traces = classid_to_ids[classid]
@@ -133,8 +133,8 @@ Xa_train, Xp_train = build_positive_pairs(range(0, num_classes))
 # Gather the ids of all network traces that are used for training
 # This just union of two sets set(A) | set(B)
 all_traces_train_idx = list(set(Xa_train) | set(Xp_train))
-print "X_train Anchor: ", Xa_train.shape
-print "X_train Positive: ", Xp_train.shape
+print("X_train Anchor: ", Xa_train.shape)
+print("X_train Positive: ", Xp_train.shape)
 
 # Build a loss which doesn't take into account the y_true, as# Build
 # we'll be passing only 0
@@ -251,7 +251,7 @@ loss = Lambda(cosine_triplet_loss,
 model_triplet = Model(
     inputs=[anchor, positive, negative],
     outputs=loss)
-print model_triplet.summary()
+print(model_triplet.summary())
 
 opt = optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9, nesterov=True)
 
